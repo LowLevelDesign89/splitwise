@@ -5,6 +5,7 @@ import com.app.splitwise.models.dto.UserResponseDTO;
 import com.app.splitwise.models.entity.User;
 import com.app.splitwise.models.mappers.UserDTOEntityMapper;
 import com.app.splitwise.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserCreationDTO userCreationDTO) {
+    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserCreationDTO userCreationDTO) {
         User user = userService.createUser(userCreationDTO);
         return new ResponseEntity<>(UserDTOEntityMapper.toUserResponseDTO(user), HttpStatus.CREATED);
     }
